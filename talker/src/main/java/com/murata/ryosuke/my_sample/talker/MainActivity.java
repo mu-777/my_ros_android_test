@@ -57,9 +57,12 @@ public class MainActivity extends RosActivity {
         Log.d(TAG, "init");
         NodeConfiguration nodeConfigurator = NodeConfiguration.newPublic(InetAddressFactory.newNonLoopback().getHostAddress());
         nodeConfigurator.setMasterUri(getMasterUri());
-        nodeConfigurator.setNodeName("android_sensors_driver_imu");
+        nodeConfigurator.setNodeName("android_talker");
 
-        this.mTalker = new Talker();
-        nodeMainExecutor.execute(this.mTalker, nodeConfigurator);
+//        this.mTalker = new Talker();
+//        nodeMainExecutor.execute(this.mTalker, nodeConfigurator);
+
+        this.mIMUPub = new IMUPublisher(mSensorManager);
+        nodeMainExecutor.execute(this.mIMUPub, nodeConfigurator);
     }
 }
